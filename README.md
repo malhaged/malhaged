@@ -10,7 +10,10 @@ Osnabrück, Germany
 
 Building a **Real-to-Sim pipeline** for autonomous agricultural robotics — from raw LiDAR/Camera/IMU sensor data to simulation-ready Digital Twins in NVIDIA Isaac Sim from a single sensor pass.
 
-`FAST-LIVO2 SLAM` → `3D Gaussian Splatting (3DGRUT)` → `USDZ / NuRec` → `NVIDIA Isaac Sim + PhysX`  
+`FAST-LIVO2 SLAM` → `3D Gaussian Splatting (3DGRUT)` → `USDZ / NuRec` → `NVIDIA Isaac Sim + PhysX` → `LiDAR / Camera Sensor Simulation`
+
+On top of the Digital Twins: **physics-based sensor simulation** — beam-exact LiDAR models and real-world effects (dust, rain, haze), validated against the original recordings.
+
 
 
 → [Research topic overview](https://hs-os-ag-intelligente-agrarsysteme.github.io/topics/gaussian-slam-synthesis)
@@ -22,10 +25,13 @@ Building a **Real-to-Sim pipeline** for autonomous agricultural robotics — fro
 ### Synthetic Data & Real-to-Sim Pipeline — AgrifoodTEF (2023–present)
 Automated generation of high-fidelity Digital Twin simulation environments for autonomous agricultural robots.
 
-- Multimodal sensor calibration: LiDAR/Camera/IMU, targetless, PTP/PPS synchronisation (Ouster, Allied Vision, Microstrain)
+- Multimodal sensor calibration: LiDAR/Camera/IMU, targetless (Ouster, Allied Vision, Microstrain)
+- Time-synchronised sensor platform on Jetson Orin: PTP + hardware camera trigger, timestamp & IMU jitter correction
 - FAST-LIVO2 LiDAR-Inertial-Visual SLAM for accurate pose estimation and point cloud generation
-- Neural rendering via 3DGRUT with USDZ export and PhysX integration into NVIDIA Isaac Sim
+- Neural rendering via NuRec with USDZ export and PhysX integration into NVIDIA Isaac Sim
 - PSNR ≥ 27 dB reconstruction quality, further optimised via LVBA-based framework
+- Beam-exact LiDAR simulation (Hesai QT128) via custom GPU raycaster (NVIDIA Warp)
+- Dust, rain and haze effects for LiDAR and camera, validated against measurements
 - Dual simulator integration: ROS2-native Gazebo sensor plugin + NVIDIA Isaac Sim via NuRec
 
 ### Hyperspectral + LiDAR Fusion — Master's Thesis (2022–2023)
@@ -43,16 +49,19 @@ Open-source benchtop visual inspection system fusing laser line profiling and hy
 ## Tech stack
 
 **Robotics & Perception**  
-`SLAM` `Sensor Fusion` `Point Cloud Processing` `LiDAR / Camera / IMU` `ROS2` `Open3D`
+`SLAM` `Sensor Fusion` `Point Cloud Processing` `LiDAR / Camera / IMU` `Calibration` `PTP Time Sync` `ROS2` `Open3D`
 
 **3D Reconstruction & Simulation**  
-`3D Gaussian Splatting` `NeRF` `Novel View Synthesis` `NVIDIA Isaac Sim` `Omniverse / USD` `Gazebo`
+`3D Gaussian Splatting` `NeRF` `Novel View Synthesis` `NVIDIA Isaac Sim` `Omniverse / USD` `Gazebo` `RTX` `Raytracing` `Warp` `PhysX`
 
 **ML & Computer Vision**  
-`PyTorch` `OpenCV` `YOLO` `Python` `NumPy` `Pandas` `C++`
+`PyTorch` `OpenCV` `YOLO` `NumPy` `Pandas`
 
-**AI & Agentic Workflows**  
-`Claude API` `Gemini CLI`
+**Tooling**  
+`Linux` `Docker` `Git` `AI-assisted development`
+
+**Languages**  
+`C++` `Python` `Bash` · `Eigen` `PCL` `CMake`
 
 ---
 
@@ -74,4 +83,4 @@ Research: AgrifoodTEF (EU) · Agri-Gaia · DFKI Nature Robots
 
 ---
 
-*Open to roles in Robotics Engineering · AI Engineering · Technical Program Management · DACH region*
+*Open to roles in Robotics Engineering · AI Engineering · Sensor Simulation · Autonomous Driving · Technical Program Management · DACH region*
